@@ -11,7 +11,7 @@ class BlogPostAdmin(admin.ModelAdmin):
     search_fields = ('title', 'content')
     list_filter = ('author', 'published')
     autocomplete_fields = ('author',) # Autocomplete pour le champ author
-    list_per_page = 10 # Nombre d'articles par page dans l'admin
+    list_per_page = 20 # Nombre d'articles par page dans l'admin
 
 
 
