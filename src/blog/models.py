@@ -19,25 +19,36 @@ class BlogPost(models.Model):
     date=models.DateField(blank=True, null=True)
     content=models.TextField()
     description=models.TextField(blank=True)
-            
-    def save(self, *args, **kwargs):
-        self.slug=slugify(self.title)
-        super(BlogPost, self).save(*args, **kwargs)
+    
+    class Meta:
+        verbose_name="Article"
+        verbose_name_plural="Articles"
+        ordering=["title"]
     
     def __str__(self):
         return self.title
     
+    def get_absolute_url(self):
+        return reverse("blog_post", kwargs={"slug": self.slug})
+    
+    
+    def save(self, *args, **kwargs):
+        self.slug=slugify(self.title)
+        super(BlogPost, self).save(*args, **kwargs)
+    
+   
     def number_of_words(self):
         return len(self.content.split())
-    
-    def get_absolute_url(self):
-        return reverse("blog-post", kwargs={"slug": self.slug})
     
 
 class Author(models.Model):
     firstname=models.CharField(max_length=50)
     lastname=models.CharField(max_length=50)
     wikipedia=models.URLField()
+        
+    class Meta:
+        verbose_name="Auteur"
+        verbose_name_plural="Auteurs"
     
     def __str__(self):
         return f"{self.firstname} {self.lastname}"
@@ -59,6 +70,11 @@ class Book(models.Model):
     category = models.CharField(max_length=20, choices=category_choices)
     stock=models.IntegerField(default=0,blank=True)
     
+    
+    class Meta:
+        verbose_name="Livre"
+        verbose_name_plural="Livres"
+        
     def __str__(self):
         return self.title
 

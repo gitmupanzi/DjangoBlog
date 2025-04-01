@@ -1,0 +1,30 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+
+{% block branding %}
+    <h1> Admin Django</h1>
+{% endblock %}
+
+{% block extrastyle  %}
+<style>
+    #header {
+        background-color: #1e1e2d;
+    }
+    #branding h1 {
+        color: #ffffff;
+        font-size: 1,5rem;
+        text-transform: capitalize;
+        front-weight: bold;
+    }
+
+    body {
+        background-color: #3b3b4c;
+
+    }
+    #content h1 {
+        color: #ffffff;
+    }
+</style>
+
+{% endblock %}
