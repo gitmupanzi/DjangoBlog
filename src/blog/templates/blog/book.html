@@ -1,0 +1,15 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ livres.title }}</title> 
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <a href="{% url 'book_index' %}">Retour au sommaire</a>
+    <h1> {{ livres.title|title }} </h1>
+    <h5> {{ livres.author.firstname }} {{ livres.author.lastname }}</h5>
+    <p> {{ livres.summary }} </p>
+</body>
+</html>

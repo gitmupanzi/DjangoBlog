@@ -1,0 +1,20 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ livres.title }}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <!-- Boucle for -->
+    <h1>Bienvenue sur mon super site !</h1>
+    {% for liste_livres in livres %}
+        <a href="{% url 'book_post' liste_livres.id %}">
+            <h1>{{ forloop.counter}}. {{ liste_livres.title }}</h1>
+        </a>
+        <p> {{ liste_livres.summary|truncatewords:100|striptags|safe}}...</p>
+    {% endfor %}
+    <hr>
+</body>
+</html>

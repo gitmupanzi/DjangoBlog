@@ -1,0 +1,10 @@
+{% extends 'blog/base.html' %}
+    {% block title %}<title>Le blog</title>
+    {% endblock %}
+    {% block content %}
+
+        {% for post in posts %}
+            <h1>{{ post.title }}</h1>
+        {% endfor %}
+
+    {% endblock %}

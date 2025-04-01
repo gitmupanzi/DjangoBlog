@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ posts.title }}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <!-- Condition -->
+    <h1>{{ posts.content }}</h1>
+    {% if posts %}
+        <h3>Le blog contient {{ posts.count }} articles</h3>
+    {% elif not posts %}
+        <h3>Le blog ne contient pas d'articles</h3>
+    {% endif %}
+
+    <!-- Boucle for -->
+    
+    {% for blog_post in posts %}
+    {% with categories=blog_post.category.count %}
+        <a href="{% url 'blog_post' blog_post.slug %}">
+            <h1>{{ forloop.counter }}. {{ blog_post.title }}</h1>
+        </a>
+        <small> cet article est present dans {{ categories }} catégorie(s) </small>
+        <p> {{ blog_post.content|truncatewords:100|striptags|safe}}...</p>
+    {% endwith %}
+    {% endfor %}
+    <hr>
+</body>
+</html>
