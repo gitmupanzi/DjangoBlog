@@ -17,14 +17,19 @@ Including another URLconf
 from turtle import home
 from django.contrib import admin
 from django.urls import path
-from blog.views import blog_post,blog_posts, book, books
+from blog.views import blog_post,blog_posts, books, book, creation_article, signup,bookform,creation_livre
 
 urlpatterns = [
-    path('',home, name='home'),  # Vue pour la page d'accueil
     path('admin/', admin.site.urls),
     path('blog/', blog_post, name='blog_index'),  # Vue pour la liste des blogs
     path('blog/<slug:slug>/', blog_posts, name='blog_post'),  # Vue pour un article spécifique
     path('books/', books, name='book_index'),  # Vue pour la liste des livres
     path('books/<int:book_pk>/', book, name='book_post'),  # Vue pour un livre spécifique
+    path('signup/', signup, name='signup'),  # Vue pour le formulaire d'inscription
+    path('article/', creation_article, name='blog_articles'),  
+    path('booksForm/', creation_livre, name='bookForm_index'),
+    path('booksForm/<int:book_pk>/', bookform, name='bookForm_post'),
+    
+ 
     
 ]

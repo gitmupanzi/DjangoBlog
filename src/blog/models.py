@@ -69,8 +69,7 @@ class Book(models.Model):
     ]
     category = models.CharField(max_length=20, choices=category_choices)
     stock=models.IntegerField(default=0,blank=True)
-    
-    
+       
     class Meta:
         verbose_name="Livre"
         verbose_name_plural="Livres"

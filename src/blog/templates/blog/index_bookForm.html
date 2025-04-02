@@ -1,0 +1,21 @@
+{% extends 'blog/base.html' %}
+{% block title %}
+    <title>Livres</title>
+{% endblock %}
+{% block content %}
+    <h1>Liste des livres</h1>
+        {% for liste_livres in livres  %}
+            <a href="{% url 'bookForm_post' book_pk=liste_livres.id %}">
+                <h1>{{ forloop.counter}}. {{ liste_livres.title }}</h1>
+            </a>
+            <p>{{ liste_livres.summary|truncatewords:100|striptags|safe }}...</p>
+        {% endfor %}
+    <hr>
+    <!-- Formulaire -->
+    <h1>Créer un livre </h1>
+    <form method="post" action="{% url 'bookForm_index' %}">
+        {% csrf_token %}
+        {{ livresForm.as_p }}
+        <input type="submit" value="Créer">
+    </form>
+{% endblock %}
