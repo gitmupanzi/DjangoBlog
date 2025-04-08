@@ -14,22 +14,30 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-from turtle import home
+
 from django.contrib import admin
 from django.urls import path
-from blog.views import blog_post,blog_posts, books, book, creation_article, signup,bookform,creation_livre
+from django.views import View
+from blog.views import homeView, BlogIndexView,BlogPostDetailView, BlogPostCreateView,BlogPostUpdateView,BlogPostDeleteView,books, book, signup,bookform,creation_livre
 
 urlpatterns = [
+    path('', homeView.as_view(), name='home'),  # Vue pour la page d'accueil
+    path('home/', homeView.as_view(), name='home'),  # Vue pour la page d'accueil
     path('admin/', admin.site.urls),
-    path('blog/', blog_post, name='blog_index'),  # Vue pour la liste des blogs
-    path('blog/<slug:slug>/', blog_posts, name='blog_post'),  # Vue pour un article spécifique
+    # CRUD pour le model BlogPost
+    path('blog/',  BlogIndexView.as_view(), name='blog_index'),  
+    path('blog/create/', BlogPostCreateView.as_view(), name='blog_create'), 
+    path('blog/<str:slug>/', BlogPostDetailView.as_view(), name='blog_post'),
+    path('blog/<str:slug>/edit/', BlogPostUpdateView.as_view(), name='blog_edit'),  
+    path('blog/<str:slug>/delete/', BlogPostDeleteView.as_view(), name='blog_delete'),
+    
+    # CRUD pour le model Author
+    path('signup/', signup, name='signup'),
+    
+    
+    # CRUD pour le model Book
     path('books/', books, name='book_index'),  # Vue pour la liste des livres
     path('books/<int:book_pk>/', book, name='book_post'),  # Vue pour un livre spécifique
-    path('signup/', signup, name='signup'),  # Vue pour le formulaire d'inscription
-    path('article/', creation_article, name='blog_articles'),  
     path('booksForm/', creation_livre, name='bookForm_index'),
-    path('booksForm/<int:book_pk>/', bookform, name='bookForm_post'),
-    
- 
-    
+    path('booksForm/<int:book_pk>/', bookform, name='bookForm_post'),   
 ]

@@ -31,7 +31,11 @@ class BlogPost(models.Model):
     def get_absolute_url(self):
         return reverse("blog_post", kwargs={"slug": self.slug})
     
-    
+    '''
+    def get_absolute_url(self):
+        return reverse("blog_post", kwargs={"pk": self.pk})  # Utiliser pk ici
+    '''
+
     def save(self, *args, **kwargs):
         self.slug=slugify(self.title)
         super(BlogPost, self).save(*args, **kwargs)

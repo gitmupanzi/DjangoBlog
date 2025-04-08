@@ -3,12 +3,19 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>{{ posts.title }}</title>
+    <title>{{ post.title }}</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
     <a href="{% url 'blog_index' %}">Retour au sommaire</a>
-    <h1> {{ posts.title }} </h1>
-    <p> {{ posts.content }} </p>
+    <p>
+        <a href="{% url 'blog_edit' post.slug %}">Modifier l'article</a>
+    </p>
+    <p>
+        <a href="{% url 'blog_delete' post.slug %}">Supprimer l'article</a>
+    </p>
+    
+    <h1> {{ post.title }} </h1>
+    <p> {{ post.content }} </p>
 </body>
 </html>
