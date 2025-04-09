@@ -7,12 +7,12 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-    <a>Retour au sommaire</a>
+    <a href="{% url 'blog:blog_index' %}">Retour au sommaire</a>
     <p>
-        <a>Modifier l'article</a>
+        <a href="{% url 'blog:blog_edit' post.slug %}">Modifier l'article</a>
     </p>
     <p>
-        <a>Supprimer l'article</a>
+        <a href="{% url 'blog:blog_delete' post.slug %}">Supprimer l'article</a>
     </p>
     
     <h1> {{ post.title }} </h1>

@@ -15,7 +15,7 @@ class Category(models.Model):
     
 class BlogPost(models.Model):
     author=models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    category=models.ManyToManyField(Category, blank=True)
+    category=models.ManyToManyField(Category)
     title=models.CharField(max_length=100)
     slug = models.SlugField(unique=True, db_index=True)
     published=models.BooleanField(default=False)
@@ -32,7 +32,7 @@ class BlogPost(models.Model):
         return self.title
     
     def get_absolute_url(self):
-        return reverse("blog_post", kwargs={"slug": self.slug})
+        return reverse("blog:blog_post", kwargs={"slug": self.slug})
   
     def save(self, *args, **kwargs):
         self.slug=slugify(self.title)

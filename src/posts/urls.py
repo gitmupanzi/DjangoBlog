@@ -1,6 +1,7 @@
 from django.urls import path
 from posts.views import BlogHome, BlogPostCreate, BlogPostDelete, BlogPostDetail, BlogPostUpdate
 
+
 app_name = 'posts'  # Nom de l'application pour les URL inversées
 urlpatterns = [
     path('', BlogHome.as_view(), name='home'), 

@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import date
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
@@ -7,7 +7,7 @@ from django.urls import reverse_lazy
 from blog.models import BlogPost, Book
 from website.forms import BlogPostForm, SignupForm,BookForm
 from django.views.decorators.csrf import csrf_exempt
-from django.views.generic import TemplateView,CreateView,ListView,UpdateView,DeleteView,DetailView
+from django.views.generic import CreateView,ListView,UpdateView,DeleteView,DetailView
 
 
 # Views basé sur des classes. CRUD
@@ -41,14 +41,14 @@ class BlogPostCreate(CreateView): # C : Create
     model= BlogPost
     template_name="blog/create_post.html"
     form_class=BlogPostForm # Utilise le formulaire défini dans forms.py
-    success_url=reverse_lazy("blogs:blog_index")  # URL de redirection après la création réussie de l'article
+    success_url=reverse_lazy("blog:blog_index")  # URL de redirection après la création réussie de l'article
     
     def form_valid(self, form):
         if self.request.user.is_authenticated:
             form.instance.author=self.request.user
         
         form.instance.published=True  # Définit la publication par défaut à False
-        form.instance.date=datetime.today()
+        form.instance.date=date.today()
         return super().form_valid(form)
     
     def get_context_data(self, **kwargs):
@@ -59,8 +59,9 @@ class BlogPostCreate(CreateView): # C : Create
 class BlogPostUpdate(UpdateView): # U : Update
     model=BlogPost
     template_name="blog/create_post.html"
+    context_object_name="post"
     form_class=BlogPostForm # Utilise le formulaire défini dans forms.py
-    access_url=reverse_lazy('blog_index')  # URL de redirection après la création réussie de l'article
+    access_url=reverse_lazy('blog:blog_index')  # URL de redirection après la mise à jour réussie de l'article
     
     def get_context_data(self, **kwargs):
         context= super().get_context_data(**kwargs)
@@ -71,7 +72,7 @@ class BlogPostDelete(DeleteView): # D : Delete
     model=BlogPost
     template_name="blog/delete_post.html"
     context_object_name="post"  # Nom de la variable dans le template
-    success_url=reverse_lazy("blogs:blog_index")  # URL de redirection après la création réussie de l'article
+    success_url=reverse_lazy("blog:blog_index")  # URL de redirection après la création réussie de l'article
     
     def get_context_data(self, **kwargs):
         context= super().get_context_data(**kwargs)

@@ -1,5 +1,5 @@
 from django import forms
-from blog.models import BlogPost,Book,Category
+from blog.models import BlogPost,Book
 
 JOBS = [
     ('python', 'Développeur python'), 
@@ -44,10 +44,6 @@ class SignupForm(forms.Form):
         return pseudo
     
 class BlogPostForm(forms.ModelForm):
-    category = forms.ModelMultipleChoiceField(
-        queryset=Category.objects.all(),
-        widget=forms.CheckboxSelectMultiple,  # Ou SelectMultiple si tu veux un menu déroulant
-    )
     class Meta:
         model = BlogPost
         fields = ['title', 'content', 'published', 'date','author','category','description']
