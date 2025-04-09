@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>Créer un blog  </h1>
-<a href="{% url 'blog_index' %}">Retour au sommaire</a>
+<a href="{% url 'blog:blog_index' %}">Retour au sommaire</a>
 
 <form method="post">
     {% csrf_token %}

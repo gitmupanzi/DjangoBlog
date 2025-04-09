@@ -8,13 +8,16 @@ from django.contrib.auth.models import User
 class Category(models.Model):
     name=models.CharField(max_length=36)
     slug=models.SlugField()
+    
+    def __str__(self):
+        return self.name
 
     
 class BlogPost(models.Model):
     author=models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    category=models.ManyToManyField(Category)
+    category=models.ManyToManyField(Category, blank=True)
     title=models.CharField(max_length=100)
-    slug=models.SlugField()
+    slug = models.SlugField(unique=True, db_index=True)
     published=models.BooleanField(default=False)
     date=models.DateField(blank=True, null=True)
     content=models.TextField()
@@ -30,21 +33,15 @@ class BlogPost(models.Model):
     
     def get_absolute_url(self):
         return reverse("blog_post", kwargs={"slug": self.slug})
-    
-    '''
-    def get_absolute_url(self):
-        return reverse("blog_post", kwargs={"pk": self.pk})  # Utiliser pk ici
-    '''
-
+  
     def save(self, *args, **kwargs):
         self.slug=slugify(self.title)
         super(BlogPost, self).save(*args, **kwargs)
-    
-   
+  
+  
     def number_of_words(self):
         return len(self.content.split())
     
-
 class Author(models.Model):
     firstname=models.CharField(max_length=50)
     lastname=models.CharField(max_length=50)

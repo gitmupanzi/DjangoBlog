@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog',
+    'posts',
 ]
 
 MIDDLEWARE = [
@@ -76,22 +77,23 @@ WSGI_APPLICATION = 'website.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
+    'default': {      
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'blog',
+        'USER': 'blogadmin',
+        'PASSWORD': '123456',
+        'HOST': 'localhost',
+        'PORT': '5432',
+        'OPTIONS': {
+            'options': '-c client_encoding=UTF8'
+        }
+    },
+    'primary': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
-    },
+    }
 }
 
-"""
-    'primary': {      
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'KengelApp',
-        'USER': 'postgres',
-        'PASSWORD': 'PostgreSQL2025',
-        'HOST': 'localhost',  # ou l'IP de ton serveur PostgreSQL
-        'PORT': '5432',  # Port par défaut de PostgreSQL
-    }
-"""   
 
 
 # Password validation

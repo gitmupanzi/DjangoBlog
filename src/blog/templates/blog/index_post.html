@@ -9,7 +9,7 @@
 <body>
     <!-- Ajout -->
     <h3>
-        <a href="/blog/create/">Ajouter un Blog</a>
+        <a>Ajouter un Blog</a>
     </h3>
 
     <!-- Condition -->
@@ -24,7 +24,7 @@
     
     {% for blog_post in posts %}
     {% with categories=blog_post.category.count %}
-        <a href="{% url 'blog_post' blog_post.slug %}">
+    <a>
             <h1>{{ forloop.counter }}. {{ blog_post.title }}</h1>
         </a>
         <small> cet article est present dans {{ categories }} catégorie(s) </small>
