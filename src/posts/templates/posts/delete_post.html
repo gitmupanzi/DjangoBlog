@@ -1,7 +1,11 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Supprimer un blog{% endblock %}
+    {% block title %}
+        <title>
+            Supprimer un blog
+        </title>
+    {% endblock %}
     {% block content %}
     <h1>Supprimer un blog  </h1>
     <a href="{% url 'home' %}">Retour au sommaire</a>
@@ -9,7 +13,7 @@
     <form method="POST">
         {% csrf_token %}
         <p>Êtes-vous sûr de vouloir supprimer cet post {{ post.title}}?</p>
-        <input type="submit" value="{{submit_text}}">
+        <input type="submit" value="{{submit_text}}" class="btn btn-delete">
     </form>
 {% endblock %}
 

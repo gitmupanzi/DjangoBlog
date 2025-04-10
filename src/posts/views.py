@@ -20,7 +20,7 @@ class BlogHome(ListView):
             return queryset
         return queryset.filter(published=True) 
       
-@method_decorator(login_required, name='dispatch')
+
 class BlogPostDetail(DetailView): # R : Read
     model=BlogPost
     context_object_name = 'post'

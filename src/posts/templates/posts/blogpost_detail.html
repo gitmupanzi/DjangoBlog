@@ -1,12 +1,15 @@
 {% extends 'base.html'%}
 
 {% block title %}
-    {{ post.title }}
+   <title> {{ post.title }}</title>
 {% endblock %}
 
 {% block content %}
-    <article>
-        <h2> {{ post.title }}</h2>
+    <article class="post-detail">
+        <h1> {{ post.title }}</h1>
+        {% if post.thumbnail %}
+            <img src="{{post.thumbnail.url}}" alt="image post">
+        {% endif %}
         <div> {{ post.content|linebreaks|safe }}</div>     
     </article>
     <h5> Publié par <i>{{ post.author_or_default }}</i> le {{ post.created_on|date:"j F Y" }}</h5>

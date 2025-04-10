@@ -14,7 +14,7 @@ class BlogPost(models.Model):
     created_on=models.DateField(blank=True, null=True, verbose_name="Created On")
     published=models.BooleanField(default=False, verbose_name="Publié")
     content = models.TextField(blank=True, null=True, verbose_name="Contenu")
-    
+    thumbnail=models.ImageField(blank=True, upload_to='posts')
     class Meta:
         ordering = ['-created_on']
         verbose_name = "Article"
