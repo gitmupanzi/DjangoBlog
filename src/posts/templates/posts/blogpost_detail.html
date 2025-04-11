@@ -8,11 +8,15 @@
     <article class="post-detail">
         <h1> {{ post.title }}</h1>
         {% if post.thumbnail %}
-            <img src="{{post.thumbnail.url}}" alt="image post">
+            <img src="{{ post.thumbnail.url }}" alt="Image post" style="max-width: 30%; height: auto;padding: .75rem;border: 1px solid #ced4da; ">
         {% endif %}
         <div> {{ post.content|linebreaks|safe }}</div>     
     </article>
-    <h5> Publié par <i>{{ post.author_or_default }}</i> le {{ post.created_on|date:"j F Y" }}</h5>
+    <h5>
+        Publié par <i>{{ post.author_or_default }}</i>le {{ post.created_on|date:"j F Y" }}. 
+        Dernière mise à jour : {{ post.last_updated|date:"j F Y à H:i" }}.
+    </h5>
+
 {% endblock %}
 
 
