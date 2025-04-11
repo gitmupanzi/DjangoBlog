@@ -12,26 +12,22 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 import os
 from pathlib import Path
-import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-# telecharger les variables d'environnement à partir du fichier .env
-env=environ.Env()
-environ.Env.read_env(env_file=str(BASE_DIR / "website/.env"))
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env("SECRET_KEY")
+SECRET_KEY = 'r60o_wb)b#1v!8&^=u1f_*189@*c7_9r5a!x0e0t@!v20o)qk_'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env.bool("DEBUG", default=False)
+DEBUG = True
 
-ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["localhost"])
+ALLOWED_HOSTS = []
+
 
 # Application definition
 
@@ -41,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'livereload',# Optionel : pour recharger automatiquement le navigateur lors de la modification du code. installer : pip install django-livereload-server
     'django.contrib.staticfiles',
     'blog',
     'posts',
@@ -54,6 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'livereload.middleware.LiveReloadScript',  # Optionel : pour recharger automatiquement le navigateur lors de la modification du code
 ]
 
 ROOT_URLCONF = 'website.urls'
