@@ -71,15 +71,11 @@ nav {
     margin-bottom: 1rem;
 }
 
-img,src{
-    display: block;
+img {
+    max-width: 30%;
+    height: auto;
     padding: .75rem;
-    width: 10%;
-    height: 10%;
-    min-width: 100px;
-    border: 1px solid #ced4da;
-    border-radius: .25rem;
-  
+    border: 1px solid #ced4da; 
 }
 
 /* src\posts\templates\posts\create_post.html */
