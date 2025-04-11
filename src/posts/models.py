@@ -7,14 +7,14 @@ from django.urls import reverse
 user = get_user_model() # l'utilisateur est défini dans le settings.py
 
 class BlogPost(models.Model):
-    title = models.CharField(max_length=255, unique=True, verbose_name="Title")
+    title = models.CharField(max_length=255, unique=True, verbose_name="Titre")
     slug= models.SlugField(max_length=255, unique=True, blank=True, verbose_name="Slug")
     author = models.ForeignKey(user, on_delete=models.SET_NULL,null=True,blank=True, verbose_name="Author",related_name="website_posts")
     last_updated= models.DateTimeField(auto_now=True, verbose_name="Last Updated")
-    created_on=models.DateField(blank=True, null=True, verbose_name="Created On")
+    created_on=models.DateField(blank=True, null=True, verbose_name="Date de création")
     published=models.BooleanField(default=False, verbose_name="Publié")
     content = models.TextField(blank=True, null=True, verbose_name="Contenu")
-    thumbnail=models.ImageField(blank=True, upload_to='posts')
+    thumbnail=models.ImageField(blank=True, upload_to='posts',verbose_name="Image")
     class Meta:
         ordering = ['-created_on']
         verbose_name = "Article"
