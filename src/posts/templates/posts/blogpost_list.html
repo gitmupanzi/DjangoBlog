@@ -13,10 +13,17 @@
             <div class="post-title">
                 <h2> {{ post.title }}</h2>
                 {% if request.user.is_authenticated %}
-                <div>
-                    <a href="{% url 'posts:edit' post.slug %}">Modifier</a>
-                    <a href="{% url 'posts:delete' post.slug %}">Supprimer</a>
-                </div>
+                    <div>
+                        <a href="{% url 'posts:edit' post.slug %}">Modifier</a>
+                        <a href="{% url 'posts:delete' post.slug %}">Supprimer</a>
+                    </div>
+                {% else %}
+                    <div>
+                        {% if post.author == request.user %}
+                            <a href="{% url 'posts:edit' post.slug %}">Modifier</a>
+                            <a href="{% url 'posts:delete' post.slug %}">Supprimer</a>
+                        {% endif %}
+                    </div>
                 {% endif %}
             </div>
 
