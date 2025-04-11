@@ -1,3 +1,4 @@
+from datetime import date
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
@@ -31,17 +32,23 @@ class BlogPostDetail(DetailView): # R : Read
         context['post']=self.object
         return context
 
-@method_decorator(login_required, name='dispatch')
 class BlogPostCreate(CreateView): # C : Create
     model= BlogPost
     template_name="posts/create_post.html"
-    fields=['title','content',] 
+    fields=['title','content','published','thumbnail',]
     success_url=reverse_lazy("posts:home") 
     
     def form_valid(self, form):
         if self.request.user.is_authenticated:
             form.instance.author=self.request.user
-        form.instance.published=True  # Définit la publication par défaut à False
+            form.instance.published=True  # Définit la publication par défaut à False
+            if form.instance.created_on is None:
+                form.instance.created_on=date.today()  # Définit la date de création à aujourd'hui
+        else:
+            form.instance.author=None  # Définit l'auteur à None si l'utilisateur n'est pas connecté
+            form.instance.published=True  # Définit la publication par défaut à True
+            if form.instance.created_on is None:
+                form.instance.created_on=date.today()  # Définit la date de création à aujourd'hui
         return super().form_valid(form)
     
     def get_context_data(self, **kwargs):
@@ -49,11 +56,10 @@ class BlogPostCreate(CreateView): # C : Create
         context['submit_text']="Créer"
         return context 
 
-@method_decorator(login_required, name='dispatch')
 class BlogPostUpdate(UpdateView): # U : Update
     model= BlogPost
     template_name="posts/create_post.html"
-    fields=['title','content','published'] 
+    fields=['title','content','published','thumbnail',]
     
     def get_context_data(self, **kwargs):
         context= super().get_context_data(**kwargs)
