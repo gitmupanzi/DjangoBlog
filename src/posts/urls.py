@@ -1,29 +1,13 @@
-"""website URL Configuration
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/3.1/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
+from django.urls import path
+from posts.views import BlogHome, BlogPostCreate, BlogPostDelete, BlogPostDetail, BlogPostUpdate
 
 
-from django.contrib import admin
-from django.urls import path,include
-from posts.views import BlogHome
-from django.conf import settings
-from django.conf.urls.static import static
-
+app_name = 'posts'  # Nom de l'application pour les URL inversées
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('', BlogHome.as_view(), name='home'), 
-    path('posts/', include('posts.urls')),  # Inclure les URL de l'application posts
-    path('blog/', include('blog.urls')),  # Inclure les URL de l'application blog 
-] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+    path('create/', BlogPostCreate.as_view(), name='create'),
+    path('<str:slug>/', BlogPostDetail.as_view(), name='detail'), 
+    path('edit/<str:slug>/', BlogPostUpdate.as_view(), name='edit'),  
+    path('delete/<str:slug>/', BlogPostDelete.as_view(), name='delete'),
+    path('delete/<int:pk>/', BlogPostDelete.as_view(), name='delete'),  # Utiliser pk si nécessaire   
+]
